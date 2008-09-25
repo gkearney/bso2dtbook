@@ -30,12 +30,14 @@ while (<IN>)  {
  $title = $1;
  $myxml  =~ m/<author.+?>(.+)<\/author?>/gi;
  $author = $1;
+ 
  $myxml =~ m/(Bookshare-.+)\./gi;
  $_ = $1;
  if (m/bookshare/gi) {
  	$uid = $_;
  } else {
- 	my $uid = time();}
+ 	my $uid = time();
+ }
  
  
  
@@ -53,8 +55,10 @@ while (<IN>)  {
     $myxml =~ s/QQ/\n/gi;
     $myxml =~ s/<\?.+\??>//gi;
     #$myxml =~ s/<p\s+.+?>/<p>/gi;
-    $myxml =~ s/<h(\d).+?>/<h$1>/gi;
-    $myxml =~ s/<level(\d).+?>/<level$1>/gi;
+    #$myxml =~ s/<h(\d).+?>/<h$1>/gi;
+    #$myxml =~ s/<level(\d).+?>/<level$1>/gi;
+    $myxml =~ s/<!--.+-->//gi;
+    $myxml =~ s/<pagenum(.+)page="special">(\d+)<\/pagenum?>/<pagenum$1page="normal">$2<\/pagenum>/gi;
     
     
 my $dtbheader = <<EOT;
